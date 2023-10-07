@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">APFound</string>
+  <string name="app_name">APFound</string>
+  <string name="logo">APFound logo</string>
 </resources>
