@@ -1,6 +1,7 @@
 package com.example.apfound.ui.widgets
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -34,7 +35,7 @@ fun CustomButton(
       containerColor = btnColor
     ),
     modifier = modifier
-      .width(340.dp)
+      .fillMaxWidth()
       .height(50.dp)
   ) {
     Text(
@@ -57,7 +58,7 @@ fun CustomOutlinedButton(
     shape = RoundedCornerShape(5.dp),
     border = BorderStroke(1.dp, btnColor),
     modifier = modifier
-      .width(340.dp)
+      .fillMaxWidth()
       .height(50.dp)
   ) {
     Text(

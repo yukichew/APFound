@@ -30,8 +30,8 @@ import com.example.apfound.ui.widgets.CustomOutlinedButton
 fun Onboarding() {
   Column(
     horizontalAlignment = Alignment.CenterHorizontally,
-    verticalArrangement = Arrangement.SpaceBetween,
-    modifier = Modifier.fillMaxSize()
+    modifier = Modifier
+      .fillMaxSize()
   ) {
     Image(
       painterResource(id = R.drawable.onboarding),
@@ -45,44 +45,51 @@ fun Onboarding() {
 //        )
     )
 
-    Spacer(modifier = Modifier.height(10.dp))
-
-    Text(
-      text = "Welcome to APFound!",
-      style = TextStyle(
-        fontSize = 28.sp,
-        fontWeight = FontWeight(800),
-        color = Color(0xFF000000),
-        textAlign = TextAlign.Center,
-      )
-    )
-
-    Text(
-      text = "APFound, your go-to solution for lost and found on campus. " +
-        "Students now have an easy way to discover those missing treasures.",
-      style = TextStyle(
-        fontSize = 14.sp,
-        lineHeight = 18.sp,
-        fontWeight = FontWeight(300),
-        color = Color(0xFF000000),
-        textAlign = TextAlign.Center
-      ),
-      modifier = Modifier.padding(start = 35.dp, end = 35.dp)
-    )
-
-    Spacer(modifier = Modifier.height(120.dp))
-
-    CustomButton(
-      text = "Login",
-      onClick = { /*TODO*/ }
-    )
-
-    CustomOutlinedButton(
-      text = "Register",
-      onClick = { /*TODO*/ }
-    )
-
     Spacer(modifier = Modifier.height(25.dp))
+
+    Column(
+      horizontalAlignment = Alignment.CenterHorizontally,
+//      verticalArrangement = Arrangement.spacedBy(15.dp),
+      modifier = Modifier.padding(start = 20.dp, end = 20.dp)
+    ) {
+      Text(
+        text = "Welcome to APFound!",
+        style = TextStyle(
+          fontSize = 28.sp,
+          fontWeight = FontWeight(800),
+          color = Color(0xFF000000),
+          textAlign = TextAlign.Center,
+        )
+      )
+
+      Spacer(modifier = Modifier.height(5.dp))
+
+      Text(
+        text = "APFound, your go-to solution for lost and found on campus. " +
+          "Students now have an easy way to discover those missing treasures.",
+        style = TextStyle(
+          fontSize = 14.sp,
+          lineHeight = 18.sp,
+          fontWeight = FontWeight(300),
+          color = Color(0xFF000000),
+          textAlign = TextAlign.Center
+        )
+      )
+
+      Spacer(modifier = Modifier.height(110.dp))
+
+      CustomButton(
+        text = "Login",
+        onClick = { /*TODO*/ }
+      )
+
+      Spacer(modifier = Modifier.height(20.dp))
+
+      CustomOutlinedButton(
+        text = "Register",
+        onClick = { /*TODO*/ }
+      )
+    }
   }
 }
 

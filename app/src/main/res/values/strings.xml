@@ -1,4 +1,20 @@
 <resources>
   <string name="app_name">APFound</string>
   <string name="logo">APFound logo</string>
+  <string name="login">Login</string>
+  <string name="register">Sign Up</string>
+  <string name="text_field_error_msg">Required Field!</string>
+  <string name="email_field">Email</string>
+  <string name="password_field">Password</string>
+  <string name="login_error_header">Authentication Error</string>
+  <string name="login_error_desc">Failed to login. Please try again.</string>
+  <string name="sign_up_title">Register New Account</string>
+  <string name="sign_up_btn">Sign Up</string>
+  <string name="sign_up_error_header">Registration Failed</string>
+  <string name="sign_up_error_desc">Error registering user. Please try again.</string>
+  <string name="user_profile_title">User Profile</string>
+  <string name="user_name_full_field">Full Name</string>
+  <string name="age_field">Age</string>
+  <string name="contact_field">Contact Number</string>
+  <string name="save_btn">Save</string>
 </resources>
