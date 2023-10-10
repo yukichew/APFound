@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "276916283452",
+    "project_id": "apfound-3bd5d",
+    "storage_bucket": "apfound-3bd5d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276916283452:android:3325a644f958d7e5dbbb39",
+        "android_client_info": {
+          "package_name": "com.example.apfound"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-aCsRjYrvN8V877c5pNOf02N1VVZq-Rs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -12,13 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.apfound.screens.Login
 import com.example.apfound.screens.SplashScreen
 import com.example.apfound.ui.theme.APFoundTheme
+import com.example.apfound.utils.Navigation
 import com.example.apfound.utils.NavigationRoutes
 
 class MainActivity : ComponentActivity() {
@@ -30,10 +30,7 @@ class MainActivity : ComponentActivity() {
           modifier = Modifier.fillMaxSize(),
           color = MaterialTheme.colorScheme.background
         ) {
-//          Navigation()
-          Login(
-            navBack = {}
-          )
+          Navigation()
         }
       }
     }
@@ -42,26 +39,4 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun APFound() {
-}
-
-@Composable
-fun Navigation() {
-  val navController = rememberNavController()
-
-  NavHost(navController = navController, startDestination = NavigationRoutes.splashScreen) {
-//    Splash Screen
-    composable(route = NavigationRoutes.splashScreen) {
-      SplashScreen(navController = navController)
-    }
-
-//    Login
-    composable(route = NavigationRoutes.login) {
-      Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-      ) {
-        Text(text = "Login", color = Color.White)
-      }
-    }
-  }
 }

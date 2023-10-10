@@ -39,13 +39,13 @@ fun Login(
     ) {
       CustomTextField(
         label = stringResource(id = R.string.email_field),
-        placeholder = "Enter Your Email",
+        placeholder = stringResource(id = R.string.email_field),
         onValueChange = {}
       )
 
       CustomTextField(
         label = stringResource(id = R.string.password_field),
-        placeholder = "Enter Your Password",
+        placeholder = stringResource(id = R.string.password_field),
         onValueChange = {},
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
       )
@@ -53,7 +53,7 @@ fun Login(
       Spacer(modifier = Modifier.height(10.dp))
 
       CustomButton(
-        text = "Login",
+        text = stringResource(id = R.string.login),
         onClick = { /*TODO*/ }
       )
     }

@@ -18,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.example.apfound.R
+import com.example.apfound.utils.NavigationRoutes
 import com.example.apfound.utils.NavigationRoutes.login
 import kotlinx.coroutines.delay
 
@@ -50,8 +51,8 @@ fun SplashScreen(navController: NavController){
       )
     )
 
-    delay(2000L)
-    navController.navigate(login)
+    delay(1500L)
+    navController.navigate(NavigationRoutes.onboarding.route)
   }
 
   Box(
