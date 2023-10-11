@@ -24,7 +24,7 @@ import com.example.apfound.ui.theme.primaryColor
 @Composable
 fun CustomTextField(
   label: String,
-  value: String = "",
+  value: String,
   placeholder: String,
   onValueChange: (String) -> Unit,
   isSingleLine: Boolean = false,
@@ -76,6 +76,7 @@ fun CustomTextFieldPreview() {
     CustomTextField(
       label = "test",
       placeholder = "test",
+      value= "",
       onValueChange = {},
       isError = false,
       errorMsg = "Required Field"

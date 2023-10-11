@@ -24,7 +24,9 @@ import kotlinx.coroutines.delay
 
 @SuppressLint("RememberReturnType")
 @Composable
-fun SplashScreen(navController: NavController){
+fun SplashScreen(
+  navController: NavController
+){
   val scale = remember {
     Animatable(0f)
   }

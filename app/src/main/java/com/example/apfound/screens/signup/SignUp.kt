@@ -1,4 +1,4 @@
-package com.example.apfound.screens
+package com.example.apfound.screens.signup
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,17 +11,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.apfound.R
 import com.example.apfound.ui.widgets.CustomHeader
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignUp(
-  navBack: () -> Unit,
+  navController: NavController
 ){
   Scaffold(
     topBar = {
-      CustomHeader(title = stringResource(id = R.string.register), navBack = navBack)
+      CustomHeader(title = stringResource(id = R.string.register), navController = navController)
     }
   ) {
       innerPadding ->
@@ -41,7 +42,5 @@ fun SignUp(
 @Preview(showBackground = true)
 @Composable
 fun SignUpPreview() {
-  SignUp(
-    navBack = {}
-  )
+
 }

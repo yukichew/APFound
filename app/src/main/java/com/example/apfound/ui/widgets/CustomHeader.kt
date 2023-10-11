@@ -25,13 +25,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.apfound.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomHeader(
   title: String,
-  navBack: () -> Unit
+  navController: NavController
 ) {
   CenterAlignedTopAppBar(
     title = {
@@ -45,7 +46,7 @@ fun CustomHeader(
     },
     navigationIcon = {
       CustomIconButton(
-        onClick = navBack,
+        onClick = { navController.navigateUp() },
         icon = Icons.Filled.ArrowBack
       )
     }
@@ -71,7 +72,7 @@ fun CustomHeaderHome() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomHeaderBasic(
-  navBack: () -> Unit
+  navController: NavController
 ) {
   TopAppBar(
     title = {
@@ -91,7 +92,7 @@ fun CustomHeaderBasic(
     },
     navigationIcon = {
       CustomIconButton(
-        onClick = navBack,
+        onClick = { navController.navigateUp() },
         icon = Icons.Filled.ArrowBack
       )
     },
@@ -101,5 +102,4 @@ fun CustomHeaderBasic(
 @Preview(showBackground = true)
 @Composable
 fun CustomHeaderPreview() {
-  CustomHeaderBasic(){}
 }
