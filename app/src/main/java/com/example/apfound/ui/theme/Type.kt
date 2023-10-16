@@ -12,12 +12,22 @@ val Inter = FontFamily(
   Font(R.font.inter_font),
 )
 
+val Poppins = FontFamily(
+  Font(R.font.poppins_font)
+)
+
+val PoppinsFamily = FontFamily(
+  Font(R.font.poppins_extra_bold, FontWeight.ExtraBold),
+  Font(R.font.poppins_semi_bold, FontWeight.SemiBold),
+  Font(R.font.poppins_bold, FontWeight.Bold)
+)
+
 val Typography = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = Inter,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
+  bodyMedium = TextStyle(
+    fontFamily = Inter,
+    fontWeight = FontWeight.Normal,
+    fontSize = 16.sp,
+    lineHeight = 24.sp,
+    letterSpacing = 0.5.sp
+  )
 )

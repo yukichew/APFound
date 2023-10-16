@@ -25,7 +25,8 @@ import kotlinx.coroutines.delay
 @SuppressLint("RememberReturnType")
 @Composable
 fun SplashScreen(
-  navController: NavController
+  navController: NavController,
+  startUpRoute: String
 ){
   val scale = remember {
     Animatable(0f)
@@ -54,7 +55,10 @@ fun SplashScreen(
     )
 
     delay(1500L)
-    navController.navigate(NavigationRoutes.onboarding.route)
+//    navController.navigate(NavigationRoutes.onboarding.route)
+    navController.navigate(startUpRoute) {
+      navController.backQueue.clear()
+    }
   }
 
   Box(

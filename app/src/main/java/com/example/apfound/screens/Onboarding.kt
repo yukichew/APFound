@@ -54,7 +54,7 @@ fun Onboarding(
       modifier = Modifier.padding(start = 20.dp, end = 20.dp)
     ) {
       Text(
-        text = "Welcome to APFound!",
+        text = stringResource(id = R.string.welcome_message),
         style = TextStyle(
           fontSize = 28.sp,
           fontWeight = FontWeight(800),
@@ -66,8 +66,7 @@ fun Onboarding(
       Spacer(modifier = Modifier.height(5.dp))
 
       Text(
-        text = "APFound, your go-to solution for lost and found on campus. " +
-          "Students now have an easy way to discover those missing treasures.",
+        text = stringResource(id = R.string.slogan),
         style = TextStyle(
           fontSize = 14.sp,
           lineHeight = 18.sp,

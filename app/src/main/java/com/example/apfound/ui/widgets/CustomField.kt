@@ -13,32 +13,37 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.apfound.R
 import com.example.apfound.ui.theme.coralTreeColor
-import com.example.apfound.ui.theme.galleryColor
 import com.example.apfound.ui.theme.primaryColor
+import com.example.apfound.ui.theme.timberwolfColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomTextField(
-  label: String,
+  label: String = "",
   value: String,
   placeholder: String,
   onValueChange: (String) -> Unit,
+  leadingIcon: @Composable (() -> Unit)? = null,
+  trailingIcon: @Composable () -> Unit = {},
   isSingleLine: Boolean = false,
   maxLines: Int = 1,
-  trailingIcon: @Composable () -> Unit = {},
   isError: Boolean = false,
   errorMsg: String = stringResource(R.string.text_field_error_msg),
   keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+  visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
   Column {
-    Text(
-      text = label,
-      modifier = Modifier.padding(start = 5.dp, bottom = 5.dp)
-    )
+    if (label.isNotEmpty()) {
+      Text(
+        text = label,
+        modifier = Modifier.padding(start = 5.dp, bottom = 5.dp)
+      )
+    }
 
     OutlinedTextField(
       value = value,
@@ -47,14 +52,16 @@ fun CustomTextField(
       label = null,
       singleLine = isSingleLine,
       maxLines = maxLines,
-      trailingIcon = trailingIcon,
       isError = isError,
+      leadingIcon = leadingIcon,
+      trailingIcon = trailingIcon,
       keyboardOptions = keyboardOptions,
       colors = TextFieldDefaults.outlinedTextFieldColors(
         focusedBorderColor = primaryColor,
-        unfocusedBorderColor = galleryColor,
+        unfocusedBorderColor = timberwolfColor,
       ),
-      modifier = Modifier.fillMaxWidth()
+      modifier = Modifier.fillMaxWidth(),
+      visualTransformation = visualTransformation,
     )
 
     if (isError) {
@@ -76,7 +83,7 @@ fun CustomTextFieldPreview() {
     CustomTextField(
       label = "test",
       placeholder = "test",
-      value= "",
+      value = "",
       onValueChange = {},
       isError = false,
       errorMsg = "Required Field"
