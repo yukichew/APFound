@@ -19,11 +19,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.apfound.R
+import com.example.apfound.ui.theme.PoppinsFamily
 import com.example.apfound.ui.theme.whiteColor
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -53,22 +55,6 @@ fun CustomHeader(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomHeaderHome() {
-  CenterAlignedTopAppBar(
-    title = {
-      Image(
-        painter = painterResource(id = R.drawable.logo),
-        contentDescription = stringResource(id = R.string.logo),
-        modifier = Modifier
-          .padding(12.dp)
-          .height(45.dp)
-      )
-    },
-  )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
 fun CustomHeaderBasic(
   navController: NavController
 ) {
@@ -87,7 +73,7 @@ fun CustomHeaderBasic(
           contentDescription = stringResource(id = R.string.logo),
           modifier = Modifier
             .padding(12.dp)
-            .height(40.dp)
+            .height(35.dp)
         )
       }
     },
@@ -100,8 +86,45 @@ fun CustomHeaderBasic(
   )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CustomHeaderCommon(
+  title: String
+) {
+  TopAppBar(
+    colors = TopAppBarDefaults.largeTopAppBarColors(
+      containerColor = whiteColor
+    ),
+    title = {
+      Box(
+        modifier = Modifier
+          .fillMaxSize(),
+        contentAlignment = Alignment.CenterEnd
+      ) {
+        Text(
+          text = title,
+          style = TextStyle(
+            fontSize = 15.sp,
+            letterSpacing = 0.1.sp,
+            fontFamily = PoppinsFamily,
+          )
+        )
+      }
+    },
+    navigationIcon = {
+      Image(
+        painter = painterResource(id = R.drawable.logo),
+        contentDescription = stringResource(id = R.string.logo),
+        modifier = Modifier
+          .padding(12.dp)
+          .height(35.dp)
+      )
+    },
+  )
+}
+
 @Preview(showBackground = true)
 @Composable
 fun CustomHeaderPreview() {
-  CustomHeaderHome()
+  CustomHeaderCommon("Yuki")
 }

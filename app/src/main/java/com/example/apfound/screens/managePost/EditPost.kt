@@ -1,14 +1,13 @@
-package com.example.apfound.screens.profile
+package com.example.apfound.screens.managePost
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -19,54 +18,57 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.apfound.R
 import com.example.apfound.ui.theme.PoppinsFamily
+import com.example.apfound.ui.widgets.CustomBottomBar
 import com.example.apfound.ui.widgets.CustomButton
 import com.example.apfound.ui.widgets.CustomDialog
-import com.example.apfound.ui.widgets.CustomHeader
 import com.example.apfound.ui.widgets.CustomHeaderBasic
-import com.example.apfound.ui.widgets.CustomIconButton
+import com.example.apfound.ui.widgets.CustomOutlinedButton
 import com.example.apfound.ui.widgets.CustomRadio
 import com.example.apfound.ui.widgets.CustomTextField
 import com.example.apfound.utils.NavigationRoutes
-import com.google.i18n.phonenumbers.PhoneNumberUtil
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditProfile(
+fun EditPost(
   navController: NavController,
-  vm: ProfileViewModel = viewModel()
+  vm: EditPostViewModel = viewModel(),
 ) {
-  val genderOptions =
-    listOf(stringResource(id = R.string.male), stringResource(id = R.string.female))
-
-  // error state
+  val itemCategoryOptions =
+    listOf(stringResource(id = R.string.lost_item), stringResource(id = R.string.found_item))
   var nameError by rememberSaveable { mutableStateOf(false) }
-  var contactError by rememberSaveable { mutableStateOf(false) }
-  var genderError by rememberSaveable { mutableStateOf(false) }
+  var descError by rememberSaveable { mutableStateOf(false) }
+  var categoryError by rememberSaveable { mutableStateOf(false) }
 
   var showFailedDialog by remember { mutableStateOf(false) }
   var showSuccessDialog by remember { mutableStateOf(false) }
+
   var isLoading by remember { mutableStateOf(false) }
   val scope = rememberCoroutineScope()
 
-  val contactErrorMsg = "Please enter a valid contact number. (+60123456789)"
+  val imagePicker = rememberLauncherForActivityResult(
+    contract = ActivityResultContracts.GetContent()
+  ) { uri: Uri? ->
+    vm.image = uri
+  }
 
   Scaffold(
     topBar = {
       CustomHeaderBasic(navController = navController)
+    },
+    bottomBar = {
+      CustomBottomBar(navController = navController)
     }
   ) { innerPadding ->
     Column(
@@ -77,7 +79,7 @@ fun EditProfile(
     ) {
 
       Text(
-        text = stringResource(id = R.string.user_profile_title),
+        text = stringResource(id = R.string.add_item),
         fontSize = 32.sp,
         fontWeight = FontWeight.Bold,
         letterSpacing = 0.16.sp,
@@ -87,8 +89,8 @@ fun EditProfile(
 
       CustomTextField(
         value = vm.name,
-        label = stringResource(id = R.string.user_name_full_field),
-        placeholder = stringResource(id = R.string.user_name_full_field),
+        label = stringResource(id = R.string.item_name),
+        placeholder = stringResource(id = R.string.item_name),
         onValueChange = {
           vm.name = it
           if (nameError) {
@@ -99,32 +101,44 @@ fun EditProfile(
       )
 
       CustomTextField(
-        value = vm.contactNumber,
-        label = stringResource(id = R.string.contact_field),
-        placeholder = stringResource(id = R.string.contact_field),
+        value = vm.desc,
+        label = stringResource(id = R.string.item_desc),
+        placeholder = stringResource(id = R.string.item_desc),
         onValueChange = {
-          vm.contactNumber = it
-          if (contactError) {
-            contactError = false
+          vm.desc = it
+          if (descError) {
+            descError = false
           }
         },
-        isError = contactError,
-        errorMsg = contactErrorMsg,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
+        isError = descError,
       )
+
+      Column() {
+        Text(
+          text = stringResource(id = R.string.item_picture),
+          modifier = Modifier.padding(start = 5.dp, bottom = 5.dp)
+        )
+
+        CustomOutlinedButton(
+          text = stringResource(id = R.string.upload_image),
+          onClick = {
+            imagePicker.launch("image/*")
+          }
+        )
+      }
 
       CustomRadio(
-        label = stringResource(id = R.string.gender_field),
-        selectedItem = vm.gender,
-        items = genderOptions,
-        onItemSelected = { selectedGender ->
-          vm.gender = selectedGender
-          genderError = false
+        label = stringResource(id = R.string.item_category),
+        selectedItem = vm.category,
+        items = itemCategoryOptions,
+        onItemSelected = { selectedCategory ->
+          vm.category = selectedCategory
+          categoryError = false
         },
-        isError = genderError
+        isError = categoryError
       )
 
-      Spacer(modifier = Modifier.height(10.dp))
+      Spacer(modifier = Modifier.height(5.dp))
 
       CustomButton(
         text = stringResource(id = R.string.save_btn),
@@ -132,23 +146,19 @@ fun EditProfile(
           if (vm.name.isBlank()) {
             nameError = true
           }
-
-          if (!isValidContactNumber(vm.contactNumber)) {
-            contactError = true
+          if (vm.desc.isBlank()) {
+            descError = true
+          }
+          if (vm.category.isBlank()) {
+            categoryError = true
           }
 
-          if (vm.gender.isBlank()) {
-            genderError = true
-          }
-
-          // Check error flags before registration
-          if (!nameError && !contactError && !genderError) {
+          if (!nameError && !descError && !categoryError) {
             isLoading = true
             scope.launch {
+              val addPostSuccessful = vm.updateItemDetail()
               isLoading = false
-              val profileUpdated = vm.updateProfile()
-
-              if (profileUpdated) {
+              if (addPostSuccessful) {
                 showSuccessDialog = true
 
               } else {
@@ -165,38 +175,29 @@ fun EditProfile(
   if (showSuccessDialog) {
     CustomDialog(
       title = stringResource(id = R.string.congratulation),
-      body = stringResource(id = R.string.edit_profile_success_desc),
+      body = stringResource(id = R.string.edit_post_success_desc),
       onDismissRequest = { /*TODO*/ },
       onClose = {
         showSuccessDialog = false
-        navController.navigate(NavigationRoutes.profile.route)
+        navController.navigate(NavigationRoutes.home.route)
       }
     )
   }
 
   if (showFailedDialog) {
     CustomDialog(
-      title = stringResource(id = R.string.edit_profile_error_header),
-      body = stringResource(id = R.string.edit_profile_error_desc),
+      title = stringResource(id = R.string.edit_post_error_header),
+      body = stringResource(id = R.string.edit_post_error_desc),
       onDismissRequest = { showFailedDialog = false },
       onClose = { showFailedDialog = false }
     )
   }
 }
 
-// Validate password format
-fun isValidPassword(password: String): Boolean {
-  val passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}\$"
-  return password.matches(passwordPattern.toRegex())
-}
 
-// Validate contact number
-fun isValidContactNumber(contactNumber: String): Boolean {
-  val phoneNumberUtil = PhoneNumberUtil.getInstance()
-  return try {
-    val parsedNumber = phoneNumberUtil.parse(contactNumber, null)
-    phoneNumberUtil.isValidNumber(parsedNumber)
-  } catch (e: Exception) {
-    false
-  }
+@Preview(showBackground = true)
+@Composable
+fun EditPostPreview() {
+  val navController = rememberNavController()
+  EditPost(navController = navController)
 }

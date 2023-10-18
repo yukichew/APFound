@@ -58,19 +58,23 @@ fun CustomOutlinedButton(
   onClick: () -> Unit,
   modifier: Modifier = Modifier,
   btnColor: Color = primaryColor,
-  textColor: Color = primaryColor
+  textColor: Color = primaryColor,
+  selected: Boolean = false
 ) {
   OutlinedButton(
     onClick = onClick,
+    colors = ButtonDefaults.outlinedButtonColors(
+      containerColor = if (selected) btnColor else Color.Transparent,
+    ),
     shape = RoundedCornerShape(5.dp),
-    border = BorderStroke(1.dp, btnColor),
+    border = BorderStroke(1.dp, if (selected) Color.Transparent else btnColor),
     modifier = modifier
       .fillMaxWidth()
       .height(50.dp)
   ) {
     Text(
       text = text,
-      color = textColor
+      color = if (selected) whiteColor else textColor,
     )
   }
 }

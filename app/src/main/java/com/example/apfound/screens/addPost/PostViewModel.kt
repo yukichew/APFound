@@ -1,4 +1,4 @@
-package com.example.apfound.screens.post
+package com.example.apfound.screens.addPost
 
 import android.net.Uri
 import android.util.Log
@@ -6,12 +6,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.apfound.model.Item
+import com.example.apfound.model.User
 import com.example.apfound.model.User.Companion.getCurrentUserId
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -23,8 +26,25 @@ class PostViewModel() : ViewModel() {
   var desc by mutableStateOf("")
   var category by mutableStateOf("")
   var image by mutableStateOf<Uri?>(null)
+  private var userId by mutableStateOf("")
 
   private val storageReference: StorageReference = FirebaseStorage.getInstance().reference
+
+  private val _currentUser = MutableStateFlow(User())
+  private val currentUser: StateFlow<User>
+    get() = _currentUser
+
+  var username by mutableStateOf("")
+
+  init {
+    viewModelScope.launch {
+      if (!getCurrentUserId().isNullOrEmpty()) {
+        _currentUser.value = getCurrentUserId()?.let { User.getCurrentUser(it) }!!
+        username = currentUser.value.name
+        userId = currentUser.value.userId
+      }
+    }
+  }
 
   private fun generateUniqueItemId(): String {
     return UUID.randomUUID().toString()
@@ -82,21 +102,20 @@ class PostViewModel() : ViewModel() {
       val currentDateTime = getCurrentDateTime()
       val imageUrl = image?.let { uploadImage(it) }
       val itemId = generateUniqueItemId()
-      val newItem = getCurrentUserId()?.let {
-        if (imageUrl != null) {
-          val newItem = Item(
-            itemId = itemId,
-            userId = it,
-            name = name,
-            desc = desc,
-            category = category,
-            image = imageUrl.toString(),
-            date = currentDateTime.first,
-            time = currentDateTime.second
-          )
-          return Item.updateItem(newItem)
-        }
+      if (imageUrl != null) {
+        val newItem = Item(
+          itemId = itemId,
+          userId = userId,
+          name = name.toLowerCase(),
+          desc = desc,
+          category = category,
+          image = imageUrl.toString(),
+          date = currentDateTime.first,
+          time = currentDateTime.second
+        )
+        return Item.updateItem(newItem)
       }
+
     } catch (e: Exception) {
       Log.e("APFound", "Item creation failed: ${e.message}")
     }

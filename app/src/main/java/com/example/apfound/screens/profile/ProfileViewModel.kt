@@ -20,10 +20,12 @@ class ProfileViewModel(): ViewModel() {
   private val currentUser: StateFlow<User>
     get() = _currentUser
 
-  var password by mutableStateOf("")
   var contactNumber by mutableStateOf("")
   var gender by mutableStateOf("")
   var name by mutableStateOf("")
+
+  var password by mutableStateOf("")
+  var confirmPassword by mutableStateOf("")
 
   //VM Initialised
   init {
@@ -53,9 +55,9 @@ class ProfileViewModel(): ViewModel() {
   }
 
   // Change password
-  suspend fun changePassword(newPassword: String): Boolean {
+  suspend fun changePassword(): Boolean {
     return try {
-      Firebase.auth.currentUser?.updatePassword(newPassword)?.await()
+      Firebase.auth.currentUser?.updatePassword(password)?.await()
       true
     } catch (e: Exception) {
       Log.e("ChangePassword", e.message ?: "Password change failed")

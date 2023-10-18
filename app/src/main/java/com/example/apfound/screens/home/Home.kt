@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.apfound.R
@@ -26,19 +27,23 @@ import com.example.apfound.ui.theme.galleryColor
 import com.example.apfound.ui.theme.primaryColor
 import com.example.apfound.ui.theme.whiteColor
 import com.example.apfound.ui.widgets.CustomBottomBar
-import com.example.apfound.ui.widgets.CustomButton
-import com.example.apfound.ui.widgets.CustomHeaderHome
-import com.example.apfound.ui.widgets.CustomOutlinedButton
+import com.example.apfound.ui.widgets.CustomHeaderCommon
 import com.example.apfound.ui.widgets.CustomTextIconButton
+import com.example.apfound.utils.NavigationRoutes
+import com.google.firebase.auth.FirebaseUser
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Home(
-  navController: NavController
+  navController: NavController,
+  vm: HomeViewModel = viewModel()
 ) {
+  var lost = stringResource(id = R.string.lost_item)
+  var found = stringResource(id = R.string.found_item)
+
   Scaffold(
     topBar = {
-      CustomHeaderHome()
+      CustomHeaderCommon(vm.name)
     },
 
     bottomBar = {
@@ -82,8 +87,10 @@ fun Home(
         verticalArrangement = Arrangement.spacedBy(20.dp),
       ) {
         CustomTextIconButton(
-          onClick = { /*TODO*/ },
-          text = stringResource(id = R.string.lost_item),
+          onClick = {
+            navController.navigate(NavigationRoutes.search.route + "?filter=" + lost)
+          },
+          text = lost,
           icon = Icons.Default.Check,
           backgroundColor = primaryColor,
           textColor = whiteColor,
@@ -91,8 +98,10 @@ fun Home(
         )
 
         CustomTextIconButton(
-          onClick = { /*TODO*/ },
-          text = stringResource(id = R.string.found_item),
+          onClick = {
+            navController.navigate(NavigationRoutes.search.route + "?filter=$found")
+          },
+          text = found,
           icon = Icons.Default.Check,
         )
       }
@@ -103,6 +112,4 @@ fun Home(
 @Preview(showBackground = true)
 @Composable
 fun HomePreview() {
-  val navController = rememberNavController()
-  Home(navController = navController)
 }

@@ -3,7 +3,6 @@ package com.example.apfound.model
 import android.os.Parcelable
 import android.util.Log
 import com.example.apfound.data.DatabaseCollection
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject

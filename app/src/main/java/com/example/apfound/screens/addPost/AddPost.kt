@@ -1,4 +1,4 @@
-package com.example.apfound.screens.post
+package com.example.apfound.screens.addPost
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -33,6 +33,7 @@ import com.example.apfound.ui.widgets.CustomBottomBar
 import com.example.apfound.ui.widgets.CustomButton
 import com.example.apfound.ui.widgets.CustomDialog
 import com.example.apfound.ui.widgets.CustomHeaderBasic
+import com.example.apfound.ui.widgets.CustomHeaderCommon
 import com.example.apfound.ui.widgets.CustomOutlinedButton
 import com.example.apfound.ui.widgets.CustomRadio
 import com.example.apfound.ui.widgets.CustomTextField
@@ -65,7 +66,7 @@ fun AddPost(
 
   Scaffold(
     topBar = {
-      CustomHeaderBasic(navController = navController)
+      CustomHeaderCommon(vm.username)
     },
     bottomBar = {
       CustomBottomBar(navController = navController)
@@ -179,7 +180,7 @@ fun AddPost(
       onDismissRequest = { /*TODO*/ },
       onClose = {
         showSuccessDialog = false
-        navController.navigate(NavigationRoutes.home.route)
+        navController.navigate(NavigationRoutes.history.route)
       }
     )
   }

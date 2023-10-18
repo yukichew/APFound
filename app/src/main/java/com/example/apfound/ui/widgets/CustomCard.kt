@@ -2,6 +2,7 @@ package com.example.apfound.ui.widgets
 
 import android.net.Uri
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,15 +37,18 @@ import coil.compose.rememberImagePainter
 import com.example.apfound.ui.theme.PoppinsFamily
 import com.example.apfound.ui.theme.whiteColor
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun CustomCard(
-  image: Int,
-  title: String
+  image: Uri?,
+  title: String,
+  onClick: () -> Unit
 ) {
   Card(
     modifier = Modifier
       .fillMaxWidth()
-      .height(250.dp),
+      .height(240.dp)
+      .clickable(onClick = onClick),
     elevation = CardDefaults.cardElevation(4.dp),
     colors = CardDefaults.cardColors(
       containerColor = whiteColor
@@ -54,12 +58,12 @@ fun CustomCard(
       modifier = Modifier.fillMaxSize()
     ) {
       Image(
-        painter = painterResource(id = image),
-        contentScale = ContentScale.Inside,
+        painter = rememberImagePainter(image),
+        contentScale = ContentScale.Fit,
         contentDescription = null,
         modifier = Modifier
           .fillMaxWidth()
-          .height(190.dp)
+          .height(180.dp)
       )
 
       Spacer(modifier = Modifier.height(5.dp))
@@ -117,14 +121,15 @@ fun CustomHorizontalCard(
       Text(
         text = title,
         fontWeight = FontWeight(600),
-        fontSize = 20.sp,
+        fontSize = 18.sp,
         lineHeight = 18.sp,
-        modifier = Modifier.padding(13.dp),
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis
+        modifier = Modifier
+          .padding(13.dp)
+          .width(140.dp),
+        maxLines = 2,
+        overflow = TextOverflow.Ellipsis,
+        softWrap = true,
       )
-
-      Spacer(modifier = Modifier.width(50.dp))
 
       Row(
         modifier = Modifier
@@ -167,7 +172,7 @@ fun CustomHorizontalCardBasic(
           contentDescription = null,
           contentScale = ContentScale.Fit,
           modifier = Modifier
-            .size(75.dp)
+            .size(50.dp)
             .aspectRatio(1f)
             .clip(RoundedCornerShape(10.dp))
         )
@@ -179,14 +184,13 @@ fun CustomHorizontalCardBasic(
         text = title,
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp,
-        modifier = Modifier.padding(13.dp),
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis,
+        modifier = Modifier
+          .padding(13.dp)
+          .width(200.dp),
         letterSpacing = 0.1.sp,
-        fontFamily = PoppinsFamily
+        fontFamily = PoppinsFamily,
+        softWrap = true
       )
-
-      Spacer(modifier = Modifier.width(50.dp))
 
       Row(
         modifier = Modifier

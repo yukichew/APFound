@@ -1,15 +1,20 @@
 package com.example.apfound.utils
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.apfound.screens.home.Home
 import com.example.apfound.screens.Onboarding
 import com.example.apfound.screens.SplashScreen
 import com.example.apfound.screens.history.History
 import com.example.apfound.screens.login.Login
-import com.example.apfound.screens.post.AddPost
+import com.example.apfound.screens.addPost.AddPost
+import com.example.apfound.screens.managePost.EditPost
+import com.example.apfound.screens.post.ItemDetail
+import com.example.apfound.screens.profile.ChangePassword
 import com.example.apfound.screens.profile.EditProfile
 import com.example.apfound.screens.profile.Profile
 import com.example.apfound.screens.search.Search
@@ -59,9 +64,24 @@ fun Navigation(currentUser: FirebaseUser?) {
       EditProfile(navController = navController)
     }
 
+    // Change Password Page
+    composable(NavigationRoutes.changePassword.route) {
+      ChangePassword(navController = navController)
+    }
+
     // Search Page
     composable(NavigationRoutes.search.route) {
       Search(navController = navController)
+    }
+
+    // Search Page
+    composable(
+      route = NavigationRoutes.search.route + "?filter={category}",
+      arguments = listOf(navArgument("category") { type = NavType.StringType }
+      )) { backStackEntry ->
+      backStackEntry.arguments?.getString("category")?.let {
+        Search(navController = navController, initialFilter = it)
+      }
     }
 
     // Add Post
@@ -69,9 +89,31 @@ fun Navigation(currentUser: FirebaseUser?) {
       AddPost(navController = navController)
     }
 
+    // Edit Post
+    composable(
+      route = NavigationRoutes.editPost.route + "/{itemId}",
+      arguments = listOf(navArgument("itemId") { type = NavType.StringType }
+      )) { backStackEntry ->
+      backStackEntry.arguments?.getString("itemId")?.let {
+        EditPost(navController = navController)
+      }
+    }
+
     // History Page
     composable(NavigationRoutes.history.route) {
       History(navController = navController)
     }
+
+    // Item Detail Page
+    composable(
+      route = NavigationRoutes.itemDetail.route + "/{itemId}",
+      arguments = listOf(navArgument("itemId") { type = NavType.StringType }
+      )) { backStackEntry ->
+      backStackEntry.arguments?.getString("itemId")?.let {
+        ItemDetail(navController = navController)
+      }
+    }
+
   }
 }
+

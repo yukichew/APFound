@@ -14,6 +14,7 @@
   <string name="gender_field">Gender</string>
   <string name="female">Female</string>
   <string name="male">Male</string>
+  <string name="confirm_password_field">Confirm Password</string>
 
   <string name="congratulation">Congratulation!</string>
   <string name="login_success_desc">You have successfully login to APFound.</string>
@@ -25,6 +26,7 @@
 
   <string name="user_profile_title">User Profile</string>
   <string name="save_btn">Save</string>
+
   <string name="edit_profile_error_header">Edit Profile Error</string>
   <string name="edit_profile_error_desc">Error editing profile. Please try again.</string>
   <string name="edit_profile_success_desc">You have successfully edited your profile.</string>
@@ -38,13 +40,27 @@
   <string name="item_category">Item Category</string>
   <string name="item_picture">Item Picture</string>
   <string name="upload_image">Upload Image</string>
+
   <string name="add_post_error_header">Failed to Add Item</string>
   <string name="add_post_error_desc">Error reporting an item. Please try again.</string>
-  <string name="add_post_success_desc">You have successfully report an item.</string>
+  <string name="add_post_success_desc">You have successfully reported an item.</string>
+
+  <string name="delete_post_error_header">Failed to Delete Item</string>
+  <string name="delete_post_error_desc">Error deleting an item. Please try again.</string>
+  <string name="delete_post_success_desc">You have successfully deleted an item.</string>
+
+  <string name="edit_post_error_header">Failed to Edit Item</string>
+  <string name="edit_post_error_desc">Error editing an item. Please try again.</string>
+  <string name="edit_post_success_desc">You have successfully edited an item.</string>
+
+  <string name="change_password_error_header">Failed to Change Password</string>
+  <string name="change_password_error_desc">Error changing password. Please try again.</string>
+  <string name="change_password_success_desc">You have successfully changed your password.</string>
 
   <string name="search">Search</string>
 
   <string name="my_posts">My Posts</string>
+  <string name="change_password">Change Password</string>
 
   <string name="logout">Log Out</string>
 </resources>

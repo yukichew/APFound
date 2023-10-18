@@ -22,6 +22,7 @@ import com.example.apfound.ui.theme.PoppinsFamily
 import com.example.apfound.ui.widgets.CustomBottomBar
 import com.example.apfound.ui.widgets.CustomButton
 import com.example.apfound.ui.widgets.CustomHeaderBasic
+import com.example.apfound.ui.widgets.CustomHeaderCommon
 import com.example.apfound.ui.widgets.CustomHorizontalCardBasic
 import com.example.apfound.utils.NavigationRoutes
 
@@ -33,7 +34,7 @@ fun Profile(
 ) {
   Scaffold(
     topBar = {
-      CustomHeaderBasic(navController = navController)
+      CustomHeaderCommon(vm.name)
     },
 
     bottomBar = {
@@ -74,7 +75,7 @@ fun Profile(
         title = "Change Password",
         onEditClick = {
           navController.navigate(
-            NavigationRoutes.editProfile.route
+            NavigationRoutes.changePassword.route
           )
         }
       )
@@ -84,6 +85,7 @@ fun Profile(
       CustomButton(
         text = stringResource(id = R.string.logout),
         onClick = {
+
         },
         modifier = Modifier.height(66.dp)
       )
